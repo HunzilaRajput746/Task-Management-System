@@ -1,5 +1,14 @@
 import mongoose from 'mongoose';
 import { MongoMemoryServer } from 'mongodb-memory-server';
+import { MongoInstance } from 'mongodb-memory-server-core';
+
+// On Windows, the mongo_killer sub-process misidentifies parent PID via process.kill(pid, 0)
+// and kills mongod prematurely. Bypassing _launchKiller ensures rock-solid process persistence.
+if (process.platform === 'win32' && MongoInstance?.prototype) {
+  MongoInstance.prototype._launchKiller = function () {
+    return undefined;
+  };
+}
 
 let mongoMemoryServer = null;
 
@@ -35,14 +44,14 @@ export const connectDB = async () => {
       }
     }
 
-    // Spin up MongoMemoryServer with extended launchTimeout (60s) for Windows binary extraction
+    // Spin up MongoMemoryServer with killer-process bypass and extended timeout
     console.log(`Spinning up In-Memory MongoDB instance for zero-config execution...`);
     mongoMemoryServer = await MongoMemoryServer.create({
       instance: {
         dbName: 'pulse_task_manager',
       },
       spawn: {
-        timeout: 60000, // 60s timeout for Windows environments
+        timeout: 60000,
       },
     });
 
@@ -52,12 +61,6 @@ export const connectDB = async () => {
     return conn;
   } catch (error) {
     console.error(`MongoDB connection warning: ${error.message}`);
-    // If MongoMemoryServer has a binary error on Windows, provide actionable instructions
-    console.log('\n--------------------------------------------------------------');
-    console.log('NOTE: If local In-Memory MongoDB binary is blocked by Windows,');
-    console.log('you can simply paste any free MongoDB Atlas URI into server/.env:');
-    console.log('MONGODB_URI=mongodb+srv://<username>:<password>@cluster.mongodb.net/pulse');
-    console.log('--------------------------------------------------------------\n');
     throw error;
   }
 };
