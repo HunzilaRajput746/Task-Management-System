@@ -1,0 +1,19 @@
+{
+  "name": "pulse-task-management-system",
+  "version": "1.0.0",
+  "description": "Enterprise Role-Based Project and Task Management System (MERN)",
+  "main": "server/src/server.js",
+  "scripts": {
+    "install-all": "npm install && npm install --prefix server && npm install --prefix client",
+    "server": "npm run dev --prefix server",
+    "client": "npm run dev --prefix client",
+    "seed": "npm run seed --prefix server",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "build": "npm run build --prefix client"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  },
+  "author": "Hunzila Rajput",
+  "license": "MIT"
+}
