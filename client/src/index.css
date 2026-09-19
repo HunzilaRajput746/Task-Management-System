@@ -1,0 +1,79 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  body {
+    background-color: #0B0F17;
+    color: #F1F5F9;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* Custom sleek scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #0B0F17;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #1E293B;
+    border-radius: 9999px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #334155;
+  }
+}
+
+@layer components {
+  /* UI/UX Pro Max Button Micro-Interactions */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-white bg-brand-600 rounded-lg 
+           hover:bg-brand-500 active:scale-[0.98] hover:scale-[1.02] shadow-sm hover:shadow-glow transition-all duration-200 disabled:opacity-50 disabled:pointer-events-none;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-slate-300 bg-slate-800/80 border border-slate-700/60 rounded-lg 
+           hover:bg-slate-700 hover:text-white active:scale-[0.98] hover:scale-[1.02] shadow-sm transition-all duration-200 disabled:opacity-50 disabled:pointer-events-none;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 px-3 py-1.5 text-sm font-medium text-slate-400 rounded-lg 
+           hover:text-white hover:bg-slate-800/60 active:scale-[0.98] transition-all duration-150;
+  }
+
+  .btn-danger {
+    @apply inline-flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-rose-300 bg-rose-950/40 border border-rose-800/50 rounded-lg 
+           hover:bg-rose-900/60 hover:text-white active:scale-[0.98] hover:scale-[1.02] transition-all duration-200;
+  }
+
+  /* UI/UX Pro Max Card Design */
+  .ui-card {
+    @apply bg-dark-surface/90 backdrop-blur-sm border border-slate-800/80 rounded-xl shadow-card transition-all duration-200;
+  }
+
+  .ui-card-hover {
+    @apply bg-dark-surface/90 backdrop-blur-sm border border-slate-800/80 rounded-xl shadow-card 
+           hover:border-slate-700/90 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200;
+  }
+
+  /* Input fields */
+  .input-field {
+    @apply w-full px-3.5 py-2.5 bg-slate-900/90 border border-slate-700/70 rounded-lg text-sm text-slate-100 placeholder-slate-500 
+           focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500 transition-all duration-200;
+  }
+
+  /* Select dropdown */
+  .select-field {
+    @apply w-full px-3.5 py-2.5 bg-slate-900/90 border border-slate-700/70 rounded-lg text-sm text-slate-100 
+           focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500 transition-all duration-200 cursor-pointer;
+  }
+}
